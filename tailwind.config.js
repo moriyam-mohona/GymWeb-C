@@ -30,8 +30,8 @@ export default {
     colors: {
       yellow: "#D6FD51",
       orange: "#FF4601",
-      // backgroundLight: "#FBF7F2",
-      red: "#BD1F17",
+      red: "#FF3131",
+      green: "#00ff00",
       blue: "#0A1425",
       white: "#FFFFFF",
       black: "#000000",
