@@ -5,7 +5,7 @@ const Heading = ({ title, subtitle, className = "", subtitleClass = "" }) => {
     <div
       className={`flex flex-col items-center text-center mb-10 ${className}`}
     >
-      <h1 className="text-2xl md:text-3xl text-white font-bold font-orbitron mt-20 mb-3 md:mb-5">
+      <h1 className="text-2xl md:text-3xl text-white font-bold font-orbitron mb-3 md:mb-5">
         {title}
       </h1>
       {subtitle && (

@@ -1,16 +1,12 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import {
-  FaBars,
-  FaChalkboardTeacher,
-  FaHome,
-  FaTimes,
-  FaUserGraduate,
-} from "react-icons/fa";
+import { FaBars, FaChalkboardTeacher, FaHome, FaTimes } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
 import useAuth from "../../Hooks/useAuth";
-import { MdManageAccounts } from "react-icons/md";
+import { MdAddTask, MdLibraryAdd, MdManageAccounts } from "react-icons/md";
+import { GoPersonFill } from "react-icons/go";
+import { GrScheduleNew } from "react-icons/gr";
 
 const Sidebar = () => {
   const [nav, setNav] = useState(false);
@@ -29,11 +25,20 @@ const Sidebar = () => {
       path: "Manage-Trainers",
       icon: <MdManageAccounts />,
     },
-    { name: "Student", path: "/Dashboard/Student", icon: <FaUserGraduate /> },
     {
-      name: "Teacher",
-      path: "/Dashboard/Teacher",
-      icon: <FaChalkboardTeacher />,
+      name: "User-Profile",
+      path: "User-Profile",
+      icon: <GoPersonFill />,
+    },
+    {
+      name: "Trainer-Request",
+      path: "Trainer-Request",
+      icon: <MdLibraryAdd />,
+    },
+    {
+      name: "Manage-Class",
+      path: "Manage-Class",
+      icon: <MdAddTask />,
     },
   ];
 

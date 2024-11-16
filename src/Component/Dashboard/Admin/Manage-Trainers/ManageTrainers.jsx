@@ -32,11 +32,37 @@ const ManageTrainers = () => {
 
     setSelectedTrainer(trainer);
     setEditForm({
-      salary: trainer?.salary || "",
+      Salary: trainer?.Salary || "",
     });
-
-    // Open the edit modal
     setEditModalOpen(true);
+  };
+
+  const handleSubmitEditForm = async (e) => {
+    e.preventDefault();
+
+    const updatedSalary = editForm.Salary;
+    try {
+      const response = await axiosSecure.patch(
+        `/trainer/${selectedTrainer._id}`,
+        {
+          Salary: updatedSalary,
+        }
+      );
+
+      if (response.status === 200) {
+        setTrainers((prev) =>
+          prev.map((trainer) =>
+            trainer._id === selectedTrainer._id
+              ? { ...trainer, Salary: updatedSalary }
+              : trainer
+          )
+        );
+        setEditModalOpen(false);
+      }
+    } catch (error) {
+      console.error("Error updating salary:", error);
+      alert("Failed to update the salary.");
+    }
   };
 
   const confirmDelete = (trainer) => {
@@ -71,57 +97,59 @@ const ManageTrainers = () => {
               <th>Specialization</th>
               <th>Experience</th>
               <th>Email</th>
-              <th>Country</th>
+              <th>Role</th>
               <th>Detail</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
           </thead>
           <tbody className="font-out text-white">
-            {trainers.map((trainer) => (
-              <tr key={trainer._id}>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img
-                          src={
-                            trainer.avatar ||
-                            "https://img.daisyui.com/images/profile/demo/2@94.webp"
-                          }
-                          alt={trainer.name}
-                        />
+            {trainers
+              .filter((trainer) => trainer.Status === "Accepted")
+              .map((trainer) => (
+                <tr key={trainer._id}>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle h-12 w-12">
+                          <img
+                            src={
+                              trainer.avatar ||
+                              "https://img.daisyui.com/images/profile/demo/2@94.webp"
+                            }
+                            alt={trainer.name}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{trainer?.Name || "-"}</div>
+                        <div className="text-sm opacity-50">
+                          {trainer?.country || "-"}
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <div className="font-bold">{trainer?.Name || "-"}</div>
-                      <div className="text-sm opacity-50">
-                        {trainer?.country || "-"}
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>{trainer?.specialization || "-"}</td>
-                <td>{trainer?.experience || "-"}</td>
-                <td>{trainer?.Email || "-"}</td>
-                <td>{trainer?.country || "-"}</td>
-                <td>
-                  <button onClick={(e) => handleEdit(e, trainer)}>
-                    Details
-                  </button>
-                </td>
-                <td>
-                  <button onClick={(e) => handleEdit(e, trainer)}>
-                    <FaEdit className="text-white text-lg" />
-                  </button>
-                </td>
-                <td>
-                  <button onClick={() => confirmDelete(trainer)}>
-                    <FaTrashCan className="text-orange text-lg" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td>{trainer?.specialization || "-"}</td>
+                  <td>{trainer?.experience || "-"}</td>
+                  <td>{trainer?.Email || "-"}</td>
+                  <td>{trainer?.Role || "-"}</td>
+                  <td>
+                    <button onClick={(e) => handleEdit(e, trainer)}>
+                      Details
+                    </button>
+                  </td>
+                  <td>
+                    <button onClick={(e) => handleEdit(e, trainer)}>
+                      <FaEdit className="text-white text-lg" />
+                    </button>
+                  </td>
+                  <td>
+                    <button onClick={() => confirmDelete(trainer)}>
+                      <FaTrashCan className="text-red text-lg" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -149,7 +177,7 @@ const ManageTrainers = () => {
               Cancel
             </button>
             <button
-              className="bg-orange text-white px-8 py-2 rounded"
+              className="bg-red text-white px-8 py-2 rounded"
               onClick={handleDelete}
             >
               Yes, Remove
@@ -165,11 +193,7 @@ const ManageTrainers = () => {
         title="Edit Trainer Details"
         content={
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log("Updated Salary:", editForm.salary);
-              setEditModalOpen(false);
-            }}
+            onSubmit={handleSubmitEditForm}
             className="flex flex-col items-center gap-4 mx-auto"
           >
             <input
@@ -200,14 +224,14 @@ const ManageTrainers = () => {
             {/* Editable Salary Field */}
             <input
               type="number"
-              name="salary"
-              value={editForm.salary || selectedTrainer?.salary || ""}
+              name="Salary"
+              value={editForm.Salary || selectedTrainer?.Salary || ""}
               placeholder="Salary"
               className="w-full input input-bordered"
               onChange={(e) =>
                 setEditForm((prev) => ({
                   ...prev,
-                  salary: e.target.value, // Update salary
+                  Salary: e.target.value,
                 }))
               }
             />

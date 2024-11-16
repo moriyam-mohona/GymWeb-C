@@ -36,22 +36,19 @@ const SignUp = () => {
     }
 
     try {
-      // Call createUser function to register the user
       const result = await createUser(email, password);
       const token = result.token;
 
-      // Store the token in localStorage
       localStorage.setItem("access-token", token);
 
       const user = result.user;
 
-      // Update user profile
       await updatePro(name);
 
-      // Create user data for backend
       const userInfo = {
         Name: name,
         Email: email,
+        Role: "Trainee",
       };
 
       // Send user data to backend

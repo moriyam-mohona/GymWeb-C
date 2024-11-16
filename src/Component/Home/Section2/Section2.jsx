@@ -13,7 +13,7 @@ const Section2 = () => {
   ];
 
   return (
-    <div className="px-3 md:px-7 lg:px-10">
+    <div className="px-3 md:px-7 lg:px-10 py-10">
       <Heading title="Find what moves you" />
 
       <div className="grid grid-cols-10 gap-16 mt-8">
