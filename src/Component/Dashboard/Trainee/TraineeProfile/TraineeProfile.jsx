@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import useAuth from "../../Hooks/useAuth";
-import Heading from "../../../SubComponents/Heading";
+
 import { FaPhoneAlt } from "react-icons/fa";
 import { RiUserLocationFill } from "react-icons/ri";
 import toast from "react-hot-toast";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import Loading from "../../../SubComponents/Loading";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Heading from "../../../../SubComponents/Heading";
+import Loading from "../../../../SubComponents/Loading";
 
-const UserProfile = () => {
+const TraineeProfile = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,6 @@ const UserProfile = () => {
         "Trainer request sent successfully, status set to Pending."
       ) {
         setUserData({ ...userData, Status: "Pending" });
-        // toast.success("Trainer request sent successfully!");
       } else {
         toast.error(response.data.message || "Failed to send trainer request.");
       }
@@ -54,7 +54,7 @@ const UserProfile = () => {
   return (
     <div className="font-out text-white">
       <Heading
-        title="Your Profile"
+        title="Trainee Profile"
         subtitle="Manage your personal information and keep your profile updated."
       />
       <div className="shadow-md rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6">
@@ -125,4 +125,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default TraineeProfile;

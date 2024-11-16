@@ -7,6 +7,7 @@ import useAuth from "../../Hooks/useAuth";
 import { MdAddTask, MdLibraryAdd, MdManageAccounts } from "react-icons/md";
 import { GoPersonFill } from "react-icons/go";
 import { GrScheduleNew } from "react-icons/gr";
+import { LuBookPlus } from "react-icons/lu";
 
 const Sidebar = () => {
   const [nav, setNav] = useState(false);
@@ -26,8 +27,18 @@ const Sidebar = () => {
       icon: <MdManageAccounts />,
     },
     {
-      name: "User-Profile",
-      path: "User-Profile",
+      name: "Admin-Profile",
+      path: "Admin-Profile",
+      icon: <GoPersonFill />,
+    },
+    {
+      name: "Trainee-Profile",
+      path: "Trainee-Profile",
+      icon: <GoPersonFill />,
+    },
+    {
+      name: "Trainer-Profile",
+      path: "Trainer-Profile",
       icon: <GoPersonFill />,
     },
     {
@@ -39,6 +50,11 @@ const Sidebar = () => {
       name: "Manage-Class",
       path: "Manage-Class",
       icon: <MdAddTask />,
+    },
+    {
+      name: "Book-Schedule",
+      path: "Book-Schedule",
+      icon: <LuBookPlus />,
     },
   ];
 
