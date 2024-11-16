@@ -10,8 +10,8 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { app } from "../Firebase/Firebase.config";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { app } from "../Firebase/firebase.config";
 const auth = getAuth(app);
 
 export const AuthContext = createContext(null);
