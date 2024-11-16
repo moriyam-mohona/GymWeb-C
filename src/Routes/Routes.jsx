@@ -13,6 +13,7 @@ import TrainerProfile from "../Component/Dashboard/Trainer/TrainerProfile/Traine
 import TraineeProfile from "../Component/Dashboard/Trainee/TraineeProfile/TraineeProfile";
 import AdminProfile from "../Component/Dashboard/Admin/AdminProfile/AdminProfile";
 import BookSchedule from "../Component/Dashboard/Trainee/BookSchedule/BookSchedule";
+import AssignedSchedule from "../Component/Dashboard/Trainer/Assiged-Schedules/AssignedSchedules";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
       { path: "Trainer-Request", element: <TrainerRequests /> },
       { path: "Manage-Class", element: <ManageClass /> },
       { path: "Book-Schedule", element: <BookSchedule /> },
+      { path: "Assigned-Schedule", element: <AssignedSchedule /> },
     ],
   },
 ]);

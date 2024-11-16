@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Heading from "../../../../SubComponents/Heading";
-import { AddBtn } from "../../../../SubComponents/Buttons/Button";
-import AddSchedule from "../AddSchedule/AddSchedule";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
-import Modal from "../../../../SubComponents/Modal"; // import your modal component
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAuth from "../../../Hooks/useAuth";
 
-const ManageClass = () => {
+const AssignedSchedule = () => {
   const [trainers, setTrainers] = useState([]);
   const [schedules, setSchedules] = useState([]);
-  const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false); // state for delete modal
-  const [selectedSchedule, setSelectedSchedule] = useState(null); // state to store selected schedule for delete
+  const [filteredSchedules, setFilteredSchedules] = useState([]);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth(); // Get logged-in user
 
+  // Fetch all trainers
   useEffect(() => {
     const fetchTrainers = async () => {
       try {
@@ -28,18 +28,25 @@ const ManageClass = () => {
     };
     fetchTrainers();
   }, []);
-
+  console.log(user);
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
         const response = await axiosPublic.get("/schedules");
         setSchedules(response.data);
+
+        const filtered = response.data.filter(
+          (schedule) =>
+            trainers.find((trainer) => trainer._id === schedule.trainerId)
+              ?.Email === user?.email
+        );
+        setFilteredSchedules(filtered); // Set filtered schedules
       } catch (error) {
         console.error("Error fetching class schedules:", error);
       }
     };
     fetchSchedules();
-  }, []);
+  }, [trainers, user?.email]);
 
   const handleAddSchedule = async (newSchedule) => {
     try {
@@ -98,20 +105,16 @@ const ManageClass = () => {
   return (
     <>
       <div className="flex justify-between items-start font-out text-white">
-        <Heading title="Manage Class Schedule" />
-        <AddBtn
-          text="Add New Schedule"
-          onClick={() => setEditModalOpen(true)}
-        />
+        <Heading title="Assigned Schedule" />
       </div>
 
-      {schedules.length === 0 ? (
+      {filteredSchedules.length === 0 ? (
         <p className="text-red text-lg">
           No available schedules at the moment....
         </p>
       ) : (
         <div className="grid grid-cols-12 gap-5">
-          {schedules.map((schedule) => (
+          {filteredSchedules.map((schedule) => (
             <div
               key={schedule._id}
               className="border bg-black col-span-12 lg:col-span-4 md:col-span-6 p-8 rounded hover:scale-95 hover:border-none hover:bg-black/70"
@@ -140,48 +143,8 @@ const ManageClass = () => {
           ))}
         </div>
       )}
-
-      <AddSchedule
-        isOpen={isEditModalOpen}
-        onClose={() => setEditModalOpen(false)}
-        trainers={trainers}
-        onAddSchedule={handleAddSchedule}
-      />
-
-      {/* Modal for delete confirmation */}
-      <Modal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)} // This should close the modal
-        title="Delete Confirmation"
-        content={
-          <p className="font-out text-lg">
-            Are you sure you want to remove this schedule for{" "}
-            <span className="font-bold text-red-500">
-              {selectedSchedule?.trainerId &&
-                getTrainerNameById(selectedSchedule?.trainerId)}
-            </span>
-            ?
-          </p>
-        }
-        actions={
-          <div className="flex justify-between items-center w-full font-out">
-            <button
-              className="text-white border hover:border-none hover:bg-white/90 hover:text-orange px-8 py-2 rounded"
-              onClick={() => setDeleteModalOpen(false)} // Close modal on cancel
-            >
-              Cancel
-            </button>
-            <button
-              className="bg-red text-white px-8 py-2 rounded"
-              onClick={handleDeleteSchedule} // Trigger delete on confirmation
-            >
-              Yes, Remove
-            </button>
-          </div>
-        }
-      />
     </>
   );
 };
 
-export default ManageClass;
+export default AssignedSchedule;

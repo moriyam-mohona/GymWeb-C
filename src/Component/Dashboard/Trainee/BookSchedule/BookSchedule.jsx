@@ -1,48 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Heading from "../../../../SubComponents/Heading";
 import { SubmitBtn } from "../../../../SubComponents/Buttons/Button";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Loading from "../../../../SubComponents/Loading";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const BookSchedule = () => {
   // State to hold the available schedules and the selected schedule
-  const [schedules, setSchedules] = useState([
-    {
-      _id: "1",
-      date: "2024-11-17",
-      startTime: "10:00 AM",
-      endTime: "12:00 PM",
-      trainerName: "John Doe",
-      capacity: 10,
-      traineeBookings: [1, 2, 3], // Dummy bookings
-    },
-    {
-      _id: "2",
-      date: "2024-11-17",
-      startTime: "1:00 PM",
-      endTime: "3:00 PM",
-      trainerName: "Jane Smith",
-      capacity: 10,
-      traineeBookings: [4, 5, 6], // Dummy bookings
-    },
-    {
-      _id: "3",
-      date: "2024-11-18",
-      startTime: "9:00 AM",
-      endTime: "11:00 AM",
-      trainerName: "Mike Johnson",
-      capacity: 10,
-      traineeBookings: [], // No bookings yet
-    },
-    {
-      _id: "4",
-      date: "2024-11-18",
-      startTime: "3:00 PM",
-      endTime: "5:00 PM",
-      trainerName: "Sara Lee",
-      capacity: 10,
-      traineeBookings: [7, 8], // Dummy bookings
-    },
-  ]);
+  const [schedules, setSchedules] = useState([]);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [error, setError] = useState("");
+  const [trainers, setTrainers] = useState([]);
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+
+  // Fetch schedules from the API using useAxiosPublic
+  useEffect(() => {
+    const fetchSchedules = async () => {
+      try {
+        const response = await axiosPublic.get("/schedules");
+        setSchedules(response.data);
+      } catch (error) {
+        console.error("Error fetching class schedules:", error);
+      }
+    };
+    fetchSchedules();
+  }, []);
 
   // Handle booking a class
   const handleBooking = () => {
@@ -59,6 +42,29 @@ const BookSchedule = () => {
     }
   };
 
+  // Fetch Trainers
+  useEffect(() => {
+    const fetchTrainers = async () => {
+      try {
+        const response = await axiosSecure.get("/users");
+        setTrainers(response.data);
+      } catch (error) {
+        console.error("Error fetching trainers:", error);
+      }
+    };
+    fetchTrainers();
+  }, []);
+
+  const getTrainerNameById = (trainerId) => {
+    const trainer = trainers.find((trainer) => trainer._id === trainerId);
+    return trainer ? trainer.Name : "Unknown Trainer";
+  };
+  const timeFormatter = new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
   return (
     <div>
       <Heading title="Book a Schedule" />
@@ -74,26 +80,43 @@ const BookSchedule = () => {
               <div
                 key={schedule._id}
                 onClick={() => setSelectedSchedule(schedule)}
-                className="border bg-black col-span-12 lg:col-span-4 md:col-span-6 p-8 rounded hover:scale-95 hover:border-none hover:bg-orange "
+                className={`border bg-black col-span-12 lg:col-span-4 md:col-span-6 p-8 rounded hover:scale-95 hover:border-none ${
+                  selectedSchedule?._id === schedule._id
+                    ? "bg-orange"
+                    : "hover:bg-orange"
+                }`}
               >
                 <p className="font-orbitron text-xl font-bold">
-                  {schedule.trainerName}
+                  {/* {schedule.trainerName} */}
+                  {getTrainerNameById(schedule.trainerId)}
                 </p>
 
                 <h4>{schedule.date}</h4>
-                <h4>{`${schedule.startTime} to ${schedule.endTime}`}</h4>
-                <p>
+                <div>
+                  {timeFormatter.format(
+                    new Date(`1970-01-01T${schedule.startTime}`)
+                  )}{" "}
+                  -{" "}
+                  {timeFormatter.format(
+                    new Date(`1970-01-01T${schedule.endTime}`)
+                  )}
+                </div>
+                {/* <p>
                   Remaining Spots:{" "}
                   {schedule.capacity - schedule.traineeBookings.length} /{" "}
                   {schedule.capacity}
-                </p>
+                </p> */}
               </div>
             ))}
           </div>
         )}
       </div>
       <div className="flex justify-center items-center mt-8 w-full">
-        <SubmitBtn text="Book this Class" className="my-5" />
+        <SubmitBtn
+          text="Book this Class"
+          onClick={handleBooking}
+          className="my-5"
+        />
       </div>
     </div>
   );

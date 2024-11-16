@@ -5,6 +5,7 @@ import Heading from "../../../../SubComponents/Heading";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Modal from "../../../../SubComponents/Modal";
 import { SubmitBtn } from "../../../../SubComponents/Buttons/Button";
+import toast from "react-hot-toast";
 
 const ManageTrainers = () => {
   const [trainers, setTrainers] = useState([]);
@@ -57,6 +58,7 @@ const ManageTrainers = () => {
               : trainer
           )
         );
+        toast.success("Trainer Info Updated!");
         setEditModalOpen(false);
       }
     } catch (error) {
@@ -117,20 +119,20 @@ const ManageTrainers = () => {
                               trainer.avatar ||
                               "https://img.daisyui.com/images/profile/demo/2@94.webp"
                             }
-                            alt={trainer.name}
+                            alt={trainer.Name}
                           />
                         </div>
                       </div>
                       <div>
                         <div className="font-bold">{trainer?.Name || "-"}</div>
                         <div className="text-sm opacity-50">
-                          {trainer?.country || "-"}
+                          {trainer?.Country || "-"}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td>{trainer?.specialization || "-"}</td>
-                  <td>{trainer?.experience || "-"}</td>
+                  <td>{trainer?.Specialization || "-"}</td>
+                  <td>{trainer?.Experience || "-"}</td>
                   <td>{trainer?.Email || "-"}</td>
                   <td>{trainer?.Role || "-"}</td>
                   <td>

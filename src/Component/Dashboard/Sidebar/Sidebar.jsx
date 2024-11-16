@@ -4,7 +4,12 @@ import { FaBars, FaChalkboardTeacher, FaHome, FaTimes } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
 import useAuth from "../../Hooks/useAuth";
-import { MdAddTask, MdLibraryAdd, MdManageAccounts } from "react-icons/md";
+import {
+  MdAddTask,
+  MdEventNote,
+  MdLibraryAdd,
+  MdManageAccounts,
+} from "react-icons/md";
 import { GoPersonFill } from "react-icons/go";
 import { GrScheduleNew } from "react-icons/gr";
 import { LuBookPlus } from "react-icons/lu";
@@ -55,6 +60,11 @@ const Sidebar = () => {
       name: "Book-Schedule",
       path: "Book-Schedule",
       icon: <LuBookPlus />,
+    },
+    {
+      name: "Assigned-Schedule",
+      path: "Assigned-Schedule",
+      icon: <MdEventNote />,
     },
   ];
 
