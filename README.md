@@ -1,65 +1,53 @@
 ## Gym Class Scheduling and Membership Management System
 
 📖 Project Overview
-The Gym Class Scheduling and Membership Management System streamlines gym operations by offering a platform for managing roles, class schedules, and memberships. This system supports three distinct roles:
+The Gym Class Scheduling and Membership Management System streamlines gym operations by providing a platform for managing roles, class schedules, and memberships. The system supports three distinct roles:
 
-# Admin:
-
-Manage trainers, create class schedules, and assign trainers.
-
-# Trainer:
-
+Roles and Responsibilities
+Admin:
+Manage trainers.
+Create and view class schedules.
+Assign trainers to classes.
+Trainer:
 View assigned class schedules.
-
-# Trainee:
-
+Trainee:
 Manage profiles and book available classes.
-The platform enforces business rules such as class size limits, scheduling limits, and role-based permissions.
+The platform enforces business rules, including class size limits, scheduling limits, and role-based permissions.
 
 🛠️ Technology Stack
-
-# Frontend:
-
+Frontend
 Programming Language: JavaScript
 Framework: React.js
 Styling: Tailwind CSS
 State Management: Context API
 Authentication: JWT-based
-
-# Backend:
-
+Backend
 Framework: Express.js
 Database: MongoDB
 Authentication: JWT
-
 📑 Features
-
-## Frontend:
-
+Frontend
 Home Page:
-Responsive design
 
+Responsive design using Tailwind CSS.
 Authentication Pages:
-Login Page with JWT-based authentication.
-Registration Page for trainees with email, password, and full name fields.
 
+Login Page: Implements JWT-based authentication.
+Registration Page: Allows trainees to register with email, password, and full name fields.
 Admin Dashboard:
+
 Manage Trainers: Add, edit, delete, and list trainers.
-
 Class Scheduling:
-Create and view schedules.
-Validation for a maximum of 5 schedules per day and 2-hour durations per class.(Not Complete)
-
+Create and view class schedules.
+Enforces scheduling rules (e.g., max 5 schedules per day, 2-hour class durations). (Feature development in progress)
 Trainer Dashboard:
-View assigned class schedules with details like date, time.
 
+View assigned class schedules, including details such as date and time.
 Mobile Responsiveness:
-Fully responsive components using Tailwind CSS.
 
-## Backend:
-
-Authentication: JWT-based authentication.
-
+Fully responsive design for all components.
+Backend
+Authentication: Secure JWT-based authentication system.
 🔑 Admin Credentials
 Email: admin@example.com
 Password: admin123
@@ -90,7 +78,7 @@ cd backend
 npm install  
 Setup environment variables:
 
-Create .env files in the respective folders.
+Create .env files in both the frontend and backend folders.
 Start the servers:
 
 bash
@@ -103,17 +91,22 @@ npm run dev
 # Backend
 
 npm start  
-Access the application at http://localhost:5000.
+Access the application:
 
+Open your browser and navigate to http://localhost:5000.
 🧪 Testing Instructions
 Login as Admin:
-Use the provided credentials.
+
+Use the provided admin credentials.
 Add Trainers:
-Navigate to the "Manage Trainers" section and add/edit/delete trainers.
+
+Navigate to the "Manage Trainers" section to add, edit, or delete trainers.
 Schedule Classes:
-Go to the "Class Scheduling" section and create schedules.
+
+Create schedules through the admin dashboard.
 Test Booking Limits:
-Attempt to exceed booking limits to verify error handling.
+
+Attempt to exceed booking limits to validate error handling.
 ❗ Important Notes
-Ensure the server is live and all API endpoints are accessible before submission.
-Include screenshots of key functionalities in your project folder for reference.
+Ensure that the server is running and all API endpoints are functional before testing.
+Include screenshots of key functionalities (e.g., dashboards, forms, and schedules) in the project folder.
