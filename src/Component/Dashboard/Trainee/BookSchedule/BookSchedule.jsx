@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import Heading from "../../../../SubComponents/Heading";
 import { SubmitBtn } from "../../../../SubComponents/Buttons/Button";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-import Loading from "../../../../SubComponents/Loading";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const BookSchedule = () => {
-  // State to hold the available schedules and the selected schedule
   const [schedules, setSchedules] = useState([]);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
   const [error, setError] = useState("");
-  const [trainers, setTrainers] = useState([]);
+  const [users, setUsers] = useState([]);
+  const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
-  // Fetch schedules from the API using useAxiosPublic
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
@@ -27,43 +27,60 @@ const BookSchedule = () => {
     fetchSchedules();
   }, []);
 
-  // Handle booking a class
-  const handleBooking = () => {
-    if (!selectedSchedule) {
-      alert("Please select a schedule to book.");
-      return;
-    }
-
-    // Simulate the booking process
-    if (selectedSchedule.traineeBookings.length >= selectedSchedule.capacity) {
-      alert("This class is full. Please select another schedule.");
-    } else {
-      alert("You have successfully booked the class!");
-    }
-  };
-
-  // Fetch Trainers
   useEffect(() => {
-    const fetchTrainers = async () => {
+    const fetchUsers = async () => {
       try {
         const response = await axiosSecure.get("/users");
-        setTrainers(response.data);
+        setUsers(response.data);
       } catch (error) {
-        console.error("Error fetching trainers:", error);
+        console.error("Error fetching users:", error);
       }
     };
-    fetchTrainers();
+    fetchUsers();
   }, []);
 
   const getTrainerNameById = (trainerId) => {
-    const trainer = trainers.find((trainer) => trainer._id === trainerId);
+    const trainer = users.find((trainer) => trainer._id === trainerId);
     return trainer ? trainer.Name : "Unknown Trainer";
   };
+
   const timeFormatter = new Intl.DateTimeFormat("en-US", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
   });
+
+  const handleBooking = async () => {
+    if (!selectedSchedule) {
+      toast.error("Please select a schedule to book.");
+      return;
+    }
+
+    const trainee = users.find((trainee) => trainee.Email === user.email);
+
+    if (!trainee) {
+      toast.error("Trainee not found.");
+      return;
+    }
+
+    if (selectedSchedule.Bookings.length >= 10) {
+      toast.error("This class is full. Please select another schedule.");
+      return;
+    }
+    try {
+      const response = await axiosSecure.patch(
+        `/booking-schedule/${selectedSchedule._id}`,
+        { userId: trainee._id }
+      );
+
+      if (response.data.message === "Booking added successfully.") {
+        toast.success("You have successfully booked the class!");
+      }
+    } catch (error) {
+      console.error("Error booking the class:", error);
+      toast.error("Failed to book the class. Please try again later.");
+    }
+  };
 
   return (
     <div>
@@ -87,7 +104,6 @@ const BookSchedule = () => {
                 }`}
               >
                 <p className="font-orbitron text-xl font-bold">
-                  {/* {schedule.trainerName} */}
                   {getTrainerNameById(schedule.trainerId)}
                 </p>
 
@@ -101,11 +117,8 @@ const BookSchedule = () => {
                     new Date(`1970-01-01T${schedule.endTime}`)
                   )}
                 </div>
-                {/* <p>
-                  Remaining Spots:{" "}
-                  {schedule.capacity - schedule.traineeBookings.length} /{" "}
-                  {schedule.capacity}
-                </p> */}
+                {/* Optional: Display remaining spots */}
+                {/* <p>Remaining Spots: {10 - schedule.Bookings.length} / 10</p> */}
               </div>
             ))}
           </div>
