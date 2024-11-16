@@ -1,112 +1,112 @@
-## Gym Class Scheduling and Membership Management System
+### 🏋️ Gym Class Scheduling and Membership Management System
+A comprehensive platform for managing gym operations, class schedules, and memberships.
 
-📖 Project Overview
-The Gym Class Scheduling and Membership Management System streamlines gym operations by providing a platform for managing roles, class schedules, and memberships. The system supports three distinct roles:
+📖 Overview
+The Gym Class Scheduling and Membership Management System simplifies gym management by offering features tailored to three user roles:
 
-Roles and Responsibilities
-Admin:
-Manage trainers.
-Create and view class schedules.
-Assign trainers to classes.
-Trainer:
-View assigned class schedules.
-Trainee:
-Manage profiles and book available classes.
-The platform enforces business rules, including class size limits, scheduling limits, and role-based permissions.
-
+Admin: Manage trainers, schedule classes, and assign trainers to sessions.
+Trainer: View their assigned schedules.
+Trainee: Manage profiles and book available classes.
+Key Features:
+Role-based permissions.
+Class size and scheduling rules enforced.
+Fully responsive UI for mobile and desktop devices.
 🛠️ Technology Stack
 Frontend
-Programming Language: JavaScript
-Framework: React.js
-Styling: Tailwind CSS
-State Management: Context API
-Authentication: JWT-based
+Technology	Details
+Programming Language	JavaScript
+Framework	React.js
+Styling	Tailwind CSS
+State Management	Context API
+Authentication	JWT-based Authentication
 Backend
-Framework: Express.js
-Database: MongoDB
-Authentication: JWT
+Technology	Details
+Framework	Express.js
+Database	MongoDB
+Authentication	JWT
 📑 Features
-Frontend
-Home Page:
-
-Responsive design using Tailwind CSS.
-Authentication Pages:
-
-Login Page: Implements JWT-based authentication.
-Registration Page: Allows trainees to register with email, password, and full name fields.
-Admin Dashboard:
-
-Manage Trainers: Add, edit, delete, and list trainers.
+💻 Frontend Features
+🌟 Home Page
+A visually appealing and responsive landing page.
+🔐 Authentication Pages
+Login Page: Secure JWT-based authentication.
+Registration Page: Allows trainees to register with:
+Email
+Password
+Full name
+🛠️ Admin Dashboard
+Trainer Management: Add, edit, delete, and list trainers.
 Class Scheduling:
-Create and view class schedules.
-Enforces scheduling rules (e.g., max 5 schedules per day, 2-hour class durations). (Feature development in progress)
-Trainer Dashboard:
-
-View assigned class schedules, including details such as date and time.
-Mobile Responsiveness:
-
-Fully responsive design for all components.
-Backend
-Authentication: Secure JWT-based authentication system.
+Create and view schedules.
+Validates:
+Maximum of 5 schedules per day.
+2-hour duration per class (Feature under development).
+🗓️ Trainer Dashboard
+View assigned schedules, including:
+Date
+Time
+📱 Mobile Responsiveness
+Fully responsive design using Tailwind CSS for seamless user experience across devices.
+⚙️ Backend Features
+JWT Authentication: Ensures secure role-based access.
+Validation: Enforces business rules for scheduling.
 🔑 Admin Credentials
-Email: admin@example.com
-Password: admin123
+Email	Password
+admin@example.com	admin123
 🚀 Deployment
-Live Hosting Links
-Frontend: Live Site
-Backend: API Endpoints
+Platform	Link
+Frontend	Live Site
+Backend	API Endpoints
 🛠️ Instructions to Run Locally
-Clone the repository:
-
+Step 1: Clone the Repository
 bash
 Copy code
 git clone https://github.com/your-repo.git  
 cd project-folder  
-Install dependencies:
-
+Step 2: Install Dependencies
 bash
 Copy code
-
-# For frontend
-
+# For frontend  
 cd frontend  
-npm install
+npm install  
 
-# For backend
-
+# For backend  
 cd backend  
 npm install  
-Setup environment variables:
-
-Create .env files in both the frontend and backend folders.
-Start the servers:
-
+Step 3: Setup Environment Variables
+Create .env files in both frontend and backend folders.
+Step 4: Start the Servers
 bash
 Copy code
+# Start Frontend  
+npm run dev  
 
-# Frontend
-
-npm run dev
-
-# Backend
-
+# Start Backend  
 npm start  
-Access the application:
-
-Open your browser and navigate to http://localhost:5000.
+Step 5: Access the Application
+Open your browser and navigate to:
+Frontend: http://localhost:5173
+Backend: http://localhost:5000
 🧪 Testing Instructions
-Login as Admin:
+Login as Admin: Use the credentials provided above.
+Add Trainers: Navigate to the Manage Trainers section to add, edit, or delete trainers.
+Schedule Classes: Test the class scheduling feature with limits validation.
+Booking Validation: Attempt exceeding booking limits to ensure proper error handling.
+📸 Screenshots
+Feature	Screenshot
+Home Page	
+Admin Dashboard	
+Trainer Dashboard	
+(Include real screenshots to replace placeholders.)
 
-Use the provided admin credentials.
-Add Trainers:
-
-Navigate to the "Manage Trainers" section to add, edit, or delete trainers.
-Schedule Classes:
-
-Create schedules through the admin dashboard.
-Test Booking Limits:
-
-Attempt to exceed booking limits to validate error handling.
 ❗ Important Notes
-Ensure that the server is running and all API endpoints are functional before testing.
-Include screenshots of key functionalities (e.g., dashboards, forms, and schedules) in the project folder.
+Ensure the backend server is running before testing the frontend.
+Include screenshots of all key functionalities in your submission.
+📜 License
+This project is open-source under the MIT License.
+
+✉️ Contact
+For any queries, reach out at:
+
+Email: your-email@example.com
+GitHub: Your GitHub Profile
