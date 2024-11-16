@@ -85,7 +85,7 @@ The **Gym Class Scheduling and Membership Management System** simplifies gym man
 | -----------------     | --------           |
 | admin@example.com     | Admin1             |
 | trainer2024@gmail.com | Trainer2024        |
-| trainer2024@gmail.com | Trainee2024        |
+| trainee2024@gmail.com | Trainee2024        |
 
 
 ---
