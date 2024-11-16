@@ -95,7 +95,6 @@ const BookSchedule = () => {
       }
     } catch (error) {
       console.error("Error booking the class:", error);
-      toast.error("Failed to book the class. Please try again later.");
     }
   };
 
