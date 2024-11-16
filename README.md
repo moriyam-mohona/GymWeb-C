@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 GymClass Scheduling and Membership Management System
 A comprehensive solution for efficiently managing gym operations, including scheduling classes, managing memberships, and defining specific roles for Admins, Trainers, and Trainees. This system ensures smooth operations through robust business rules and streamlined workflows.
 
@@ -122,3 +123,11 @@ Testing Instructions
 Login using the admin credentials.
 Create trainers and schedules.
 Test class booking limits and error handling.
+=======
+Admin :
+admin@gmail.com   Admin1
+Trainer:
+trainer1@gmail.com   Trainer1
+Trainee:
+trainee1@gmail.com    Trainee1
+>>>>>>> 5a8b306410e6f3b59fcb362680b28255bdc0b08b
