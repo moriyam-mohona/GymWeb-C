@@ -1,133 +1,119 @@
-<<<<<<< HEAD
-GymClass Scheduling and Membership Management System
-A comprehensive solution for efficiently managing gym operations, including scheduling classes, managing memberships, and defining specific roles for Admins, Trainers, and Trainees. This system ensures smooth operations through robust business rules and streamlined workflows.
+## Gym Class Scheduling and Membership Management System
 
-Project Overview
-The GymClass Scheduling and Membership Management System allows admins to manage trainers, schedule classes, and assign trainers. Trainers can view their assigned schedules, and trainees can book classes if space is available. The system enforces business rules like maximum daily schedules and attendee limits, ensuring an organized and efficient process.
+📖 Project Overview
+The Gym Class Scheduling and Membership Management System streamlines gym operations by offering a platform for managing roles, class schedules, and memberships. This system supports three distinct roles:
 
-Technology Stack
-Frontend
-Web Framework: React.js
-Styling Framework: Tailwind CSS
-State Management: Redux Toolkit, Context API, React Hooks
-Authentication: JWT-based client-side validation
-Data Fetching: Redux Toolkit, Axios/Fetch API
-Backend
-Programming Language: JavaScript/TypeScript (recommended)
-Web Framework: Express.js
-Database: MongoDB / PostgreSQL
-ORM/ODM: Prisma / Mongoose
-Authentication: JSON Web Tokens (JWT)
-Features
-Frontend
+# Admin:
+
+Manage trainers, create class schedules, and assign trainers.
+
+# Trainer:
+
+View assigned class schedules.
+
+# Trainee:
+
+Manage profiles and book available classes.
+The platform enforces business rules such as class size limits, scheduling limits, and role-based permissions.
+
+🛠️ Technology Stack
+
+# Frontend:
+
+Programming Language: JavaScript
+Framework: React.js
+Styling: Tailwind CSS
+State Management: Context API
+Authentication: JWT-based
+
+# Backend:
+
+Framework: Express.js
+Database: MongoDB
+Authentication: JWT
+
+📑 Features
+
+## Frontend:
+
 Home Page:
+Responsive design
 
-Dynamic and visually appealing homepage showcasing the gym's services and schedules.
-Authentication:
+Authentication Pages:
+Login Page with JWT-based authentication.
+Registration Page for trainees with email, password, and full name fields.
 
-Login Page:
-Email and Password fields with JWT-based authentication.
-Redux handles authentication state.
-Registration Page (Trainees):
-Email, Password, and Full Name fields.
-Dispatch actions to register new users.
 Admin Dashboard:
+Manage Trainers: Add, edit, delete, and list trainers.
 
-Manage Trainers:
-Add, edit, delete, and fetch trainers using Redux actions and API calls.
-Display a list of trainers with edit/delete options.
 Class Scheduling:
-Fetch and display existing schedules.
-Create new schedules with forms.
-Validation rules: max 5 schedules/day and 2-hour class duration.
+Create and view schedules.
+Validation for a maximum of 5 schedules per day and 2-hour durations per class.(Not Complete)
+
 Trainer Dashboard:
+View assigned class schedules with details like date, time.
 
-View assigned class schedules with details like date, time, and trainee count.
 Mobile Responsiveness:
+Fully responsive components using Tailwind CSS.
 
-Fully responsive design for all pages and components using Tailwind CSS or CSS media queries.
-Backend
-Roles and Permissions:
+## Backend:
 
-Admin: Manage trainers and schedules. Cannot manage trainee profiles.
-Trainer: View assigned class schedules only.
-Trainee: Manage own profile and book available class schedules.
-Business Rules:
+Authentication: JWT-based authentication.
 
-Max 5 schedules per day, each lasting 2 hours.
-Max 10 trainees per class schedule.
-Error Handling:
-
-Unauthorized Access: Restricted actions for unauthenticated/unauthorized users.
-Validation Errors: Ensure input validity.
-Booking Limits: Prevent overbooking and excessive scheduling.
-API Endpoints
-Method Endpoint Description
-POST /auth/login User login with JWT authentication.
-POST /auth/register User registration (trainees only).
-GET /trainers Fetch all trainers.
-POST /trainers Add a new trainer.
-PUT /trainers/:id Update a trainer's information.
-DELETE /trainers/:id Delete a trainer.
-GET /classes Fetch all schedules.
-POST /classes Create a new class schedule.
-Database Schema
-Users
-id
-email
-password
-role (Admin/Trainer/Trainee)
-Trainers
-id
-name
-email
-ClassSchedules
-id
-date
-time
-trainerId
-traineeCount (Max: 10)
-Relational Diagram
-
-Instructions to Run Locally
+🔑 Admin Credentials
+Email: admin@example.com
+Password: admin123
+🚀 Deployment
+Live Hosting Links
+Frontend: Live Site
+Backend: API Endpoints
+🛠️ Instructions to Run Locally
 Clone the repository:
 
 bash
 Copy code
-git clone <repository-url>
-Navigate to the project directory:
-
-bash
-Copy code
-cd <project-directory>
+git clone https://github.com/your-repo.git  
+cd project-folder  
 Install dependencies:
 
 bash
 Copy code
+
+# For frontend
+
+cd frontend  
 npm install
-Run the server locally:
+
+# For backend
+
+cd backend  
+npm install  
+Setup environment variables:
+
+Create .env files in the respective folders.
+Start the servers:
 
 bash
 Copy code
+
+# Frontend
+
 npm run dev
-Access the app at:
-http://localhost:3000
 
-Live Project Link
-Deployed Application
+# Backend
 
-Admin Credentials
-Email: admin@example.com
-Password: admin123
-Testing Instructions
-Login using the admin credentials.
-Create trainers and schedules.
-Test class booking limits and error handling.
-=======
-Admin :
-admin@gmail.com   Admin1
-Trainer:
-trainer1@gmail.com   Trainer1
-Trainee:
-trainee1@gmail.com    Trainee1
->>>>>>> 5a8b306410e6f3b59fcb362680b28255bdc0b08b
+npm start  
+Access the application at http://localhost:5000.
+
+🧪 Testing Instructions
+Login as Admin:
+Use the provided credentials.
+Add Trainers:
+Navigate to the "Manage Trainers" section and add/edit/delete trainers.
+Schedule Classes:
+Go to the "Class Scheduling" section and create schedules.
+Test Booking Limits:
+Attempt to exceed booking limits to verify error handling.
+❗ Important Notes
+Ensure the server is live and all API endpoints are accessible before submission.
+Include screenshots of key functionalities in your project folder for reference.
