@@ -60,8 +60,13 @@ The **Gym Class Scheduling and Membership Management System** simplifies gym man
 - **Class Scheduling**:
   - Create and view schedules.
   - Validates:
+<<<<<<< HEAD
     - Maximum of 5 schedules per day.
     - 2-hour duration per class _(Feature under development)_.
+=======
+    - Maximum of 5 schedules per day(Not Complete).
+    - 2-hour duration per class _(Feature under development).
+>>>>>>> ad358903f5f2918cf47f907d2160e4304243f701
 
 #### 🗓️ Trainer Dashboard
 
@@ -76,12 +81,16 @@ The **Gym Class Scheduling and Membership Management System** simplifies gym man
 ### ⚙️ Backend Features
 
 - **JWT Authentication**: Ensures secure role-based access.
+<<<<<<< HEAD
 - **Validation**: Enforces business rules for scheduling.
+=======
+>>>>>>> ad358903f5f2918cf47f907d2160e4304243f701
 
 ---
 
 ## 🔑 Admin Credentials
 
+<<<<<<< HEAD
 | Email             | Password |
 | ----------------- | -------- |
 | admin@example.com | admin123 |
@@ -94,6 +103,14 @@ The **Gym Class Scheduling and Membership Management System** simplifies gym man
 | ------------ | ------------------ |
 | **Frontend** | [Live Site](#)     |
 | **Backend**  | [API Endpoints](#) |
+=======
+| Email                 | Password           |
+| -----------------     | --------           |
+| admin@example.com     | Admin1             |
+| trainer2024@gmail.com | Trainer2024        |
+| trainee2024@gmail.com | Trainee2024        |
+
+>>>>>>> ad358903f5f2918cf47f907d2160e4304243f701
 
 ---
 
@@ -133,6 +150,7 @@ Login as Admin: Use the credentials provided above.
 Add Trainers: Navigate to the Manage Trainers section to add, edit, or delete trainers.
 Schedule Classes: Test the class scheduling feature with limits validation.
 Booking Validation: Attempt exceeding booking limits to ensure proper error handling.
+<<<<<<< HEAD
 📸 Screenshots
 Feature	Screenshot
 Home Page
@@ -151,4 +169,7 @@ For any queries, reach out at:
 
 Email: your-email@example.com
 GitHub: Your GitHub Profile
+=======
+
+>>>>>>> ad358903f5f2918cf47f907d2160e4304243f701
 ```
