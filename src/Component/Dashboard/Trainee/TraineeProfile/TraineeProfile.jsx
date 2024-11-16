@@ -20,10 +20,10 @@ const TraineeProfile = () => {
     axiosSecure(`/user/${user.email}`)
       .then((res) => {
         setUserData(res.data);
-        // Dynamically populate the formData from user data
+
         setFormData({
-          phone: res.data.phone || "",
-          address: res.data.address || "",
+          Phone: res.data.phone || "",
+          Address: res.data.address || "",
         });
       })
       .catch((error) => console.error("Error fetching user data:", error));
@@ -59,9 +59,14 @@ const TraineeProfile = () => {
   const handleUpdateProfile = async () => {
     setLoading(true);
     try {
+      const updatedData = {
+        Phone: formData.phone || "",
+        Address: formData.address || "",
+      };
+
       const response = await axiosSecure.patch(
         `/edit-user/${userData._id}`,
-        formData
+        updatedData
       );
 
       if (response.data.message === "User updated successfully.") {
@@ -168,7 +173,7 @@ const TraineeProfile = () => {
                 type="text"
                 name="phone"
                 value={formData.phone || ""}
-                onInput={handleInput} // Using onInput instead of onChange or onBlur
+                onInput={handleInput}
                 className="w-full px-3 py-2 border rounded"
               />
             </div>
@@ -178,7 +183,7 @@ const TraineeProfile = () => {
                 type="text"
                 name="address"
                 value={formData.address || ""}
-                onInput={handleInput} // Using onInput instead of onChange or onBlur
+                onInput={handleInput}
                 className="w-full px-3 py-2 border rounded"
               />
             </div>

@@ -73,7 +73,7 @@ const AddSchedule = ({ isOpen, onClose, trainers, onAddSchedule }) => {
       const response = await axiosSecure.post("/schedule", newSchedule);
       if (response.status === 200) {
         toast.success("Schedule added successfully!");
-        onAddSchedule(newSchedule); // This will trigger the update in the parent component
+        onAddSchedule(newSchedule);
         form.reset();
         onClose();
       } else {

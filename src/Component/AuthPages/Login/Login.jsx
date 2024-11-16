@@ -7,7 +7,7 @@ import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { signIn } = useAuth;
+  const { signIn } = useAuth();
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [generalError, setGeneralError] = useState("");
@@ -19,33 +19,28 @@ const Login = () => {
     const email = form.email.value.trim();
     const password = form.password.value.trim();
 
-    // Clear previous error messages
     setEmailError("");
     setPasswordError("");
     setGeneralError("");
 
-    // Validate email
     if (!email.includes("@")) {
       setEmailError("Please enter a valid email.");
       return;
     }
 
-    // Validate password
     if (password.length < 6) {
       setPasswordError("Password must be at least 6 characters long.");
       return;
     }
 
     try {
-      // Attempt to log in
       const result = await signIn(email, password);
       const user = result.user;
 
       console.log(user);
       toast.success("Login successfully");
-      navigate("/"); // Redirect after successful login
+      navigate("/");
     } catch (error) {
-      // Handle different error scenarios
       switch (error.code) {
         case "auth/wrong-password":
           setGeneralError("Incorrect password. Please try again.");
@@ -90,7 +85,7 @@ const Login = () => {
               name="email"
               className="w-full p-3 rounded-md border focus:outline-none focus:ring-2"
               placeholder="Enter your email"
-              onChange={(e) => setEmailError("")} // Clear email error on typing
+              onChange={(e) => setEmailError("")}
             />
             {emailError && (
               <p className="text-red-500 text-xs mt-1">{emailError}</p>
@@ -111,9 +106,8 @@ const Login = () => {
               name="password"
               className="w-full p-3 rounded-md border focus:outline-none focus:ring-2"
               placeholder="Enter your password"
-              onChange={(e) => setPasswordError("")} // Clear password error on typing
+              onChange={(e) => setPasswordError("")}
             />
-            {/* Toggle Password Button */}
             <button
               type="button"
               onClick={togglePasswordVisibility}
@@ -126,18 +120,15 @@ const Login = () => {
             )}
           </div>
 
-          {/* General Error */}
           {generalError && (
             <p className="text-red-500 text-center text-sm mb-4">
               {generalError}
             </p>
           )}
 
-          {/* Submit Button */}
           <SubmitBtn text="Login" className="block mt-4" />
         </form>
 
-        {/* Forgot Password & Register Links */}
         <div className="mt-6 text-center">
           <p className="text-sm mt-2">
             Don't have an account?{" "}

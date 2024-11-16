@@ -25,7 +25,6 @@ const AdminProfile = () => {
     return <Loading />;
   }
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedData = {
@@ -35,13 +34,13 @@ const AdminProfile = () => {
 
     try {
       const response = await axiosSecure.patch(
-        `/edit-user/${userData._id}`, // Use the user's ID for the request
+        `/edit-user/${userData._id}`,
         updatedData
       );
 
-      setUserData(response.data.updatedUser); // Update state with new data
+      setUserData(response.data.updatedUser);
       toast.success("Profile updated successfully!");
-      setIsModalOpen(false); // Close the modal
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error updating user data:", error);
       alert("Failed to update profile.");
@@ -92,7 +91,7 @@ const AdminProfile = () => {
         </button>
       </div>
 
-      {/* Modal Component */}
+      {/* Modal  */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

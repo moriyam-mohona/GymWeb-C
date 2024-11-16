@@ -5,15 +5,15 @@ import { AddBtn } from "../../../../SubComponents/Buttons/Button";
 import AddSchedule from "../AddSchedule/AddSchedule";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
-import Modal from "../../../../SubComponents/Modal"; // import your modal component
+import Modal from "../../../../SubComponents/Modal";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const ManageClass = () => {
   const [trainers, setTrainers] = useState([]);
   const [schedules, setSchedules] = useState([]);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false); // state for delete modal
-  const [selectedSchedule, setSelectedSchedule] = useState(null); // state to store selected schedule for delete
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
@@ -60,14 +60,12 @@ const ManageClass = () => {
       if (response.status === 200) {
         toast.success("Schedule deleted successfully!");
 
-        // First update the UI (state) to remove the deleted schedule
         setSchedules((prevSchedules) =>
           prevSchedules.filter(
             (schedule) => schedule._id !== selectedSchedule._id
           )
         );
 
-        // After state update is complete, close the modal
         setDeleteModalOpen(false);
       } else {
         toast.error("Failed to delete schedule.");
@@ -79,7 +77,6 @@ const ManageClass = () => {
 
   useEffect(() => {
     if (selectedSchedule && !isDeleteModalOpen) {
-      // After the modal is closed, reset selectedSchedule to null
       setSelectedSchedule(null);
     }
   }, [isDeleteModalOpen, selectedSchedule]);
@@ -121,8 +118,8 @@ const ManageClass = () => {
                 <FaTrash
                   className="text-red hover:text-white cursor-pointer"
                   onClick={() => {
-                    setSelectedSchedule(schedule); // Set the selected schedule
-                    setDeleteModalOpen(true); // Open delete modal
+                    setSelectedSchedule(schedule);
+                    setDeleteModalOpen(true);
                   }}
                 />
               </div>
@@ -148,10 +145,9 @@ const ManageClass = () => {
         onAddSchedule={handleAddSchedule}
       />
 
-      {/* Modal for delete confirmation */}
       <Modal
         isOpen={isDeleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)} // This should close the modal
+        onClose={() => setDeleteModalOpen(false)}
         title="Delete Confirmation"
         content={
           <p className="font-out text-lg">
@@ -167,13 +163,13 @@ const ManageClass = () => {
           <div className="flex justify-between items-center w-full font-out">
             <button
               className="text-white border hover:border-none hover:bg-white/90 hover:text-orange px-8 py-2 rounded"
-              onClick={() => setDeleteModalOpen(false)} // Close modal on cancel
+              onClick={() => setDeleteModalOpen(false)}
             >
               Cancel
             </button>
             <button
               className="bg-red text-white px-8 py-2 rounded"
-              onClick={handleDeleteSchedule} // Trigger delete on confirmation
+              onClick={handleDeleteSchedule}
             >
               Yes, Remove
             </button>

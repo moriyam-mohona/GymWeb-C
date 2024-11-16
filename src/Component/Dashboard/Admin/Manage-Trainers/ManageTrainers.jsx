@@ -223,7 +223,6 @@ const ManageTrainers = () => {
               readOnly
             />
 
-            {/* Editable Salary Field */}
             <input
               type="number"
               name="Salary"

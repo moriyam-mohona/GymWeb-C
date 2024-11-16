@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
-import { FaBars, FaChalkboardTeacher, FaHome, FaTimes } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaBars, FaHome, FaTimes } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-
 import useAuth from "../../Hooks/useAuth";
 import {
   MdAddTask,
@@ -11,149 +10,89 @@ import {
   MdManageAccounts,
 } from "react-icons/md";
 import { GoPersonFill } from "react-icons/go";
-import { GrScheduleNew } from "react-icons/gr";
 import { LuBookPlus } from "react-icons/lu";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Sidebar = () => {
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav(!nav);
   const { user } = useAuth();
-  const nameLength = user?.displayName?.length;
-  const role = user?.displayName?.slice(nameLength - 7, nameLength);
+  const axiosSecure = useAxiosSecure();
+  const [role, setRole] = useState("");
+  const [users, setUsers] = useState([]);
 
-  // get current pathname
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axiosSecure.get("/users");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
+  useEffect(() => {
+    if (user) {
+      const fetchedRole = getUserRole(user.email);
+      setRole(fetchedRole);
+    }
+  }, [user, users]);
+
+  const getUserRole = (userEmail) => {
+    const foundUser = users.find((user) => user.Email === userEmail);
+    return foundUser ? foundUser.Role : "Undefined";
+  };
+
   const { pathname } = useLocation();
 
-  const navItems = [
+  const adminNavItems = [
     { name: "Dashboard", path: "/Dashboard", icon: <FaHome /> },
     {
       name: "Manage-Trainers",
       path: "Manage-Trainers",
       icon: <MdManageAccounts />,
     },
+    { name: "Admin-Profile", path: "Admin-Profile", icon: <GoPersonFill /> },
     {
-      name: "Admin-Profile",
-      path: "Admin-Profile",
-      icon: <GoPersonFill />,
+      name: "Trainer-Request",
+      path: "Trainer-Request",
+      icon: <MdLibraryAdd />,
     },
-    {
-      name: "Trainee-Profile",
-      path: "Trainee-Profile",
-      icon: <GoPersonFill />,
-    },
+    { name: "Manage-Class", path: "Manage-Class", icon: <MdAddTask /> },
+  ];
+
+  const trainerNavItems = [
     {
       name: "Trainer-Profile",
       path: "Trainer-Profile",
       icon: <GoPersonFill />,
     },
     {
-      name: "Trainer-Request",
-      path: "Trainer-Request",
-      icon: <MdLibraryAdd />,
-    },
-    {
-      name: "Manage-Class",
-      path: "Manage-Class",
-      icon: <MdAddTask />,
-    },
-    {
-      name: "Book-Schedule",
-      path: "Book-Schedule",
-      icon: <LuBookPlus />,
-    },
-    {
       name: "Assigned-Schedule",
       path: "Assigned-Schedule",
       icon: <MdEventNote />,
     },
+    { name: "Book-Schedule", path: "Book-Schedule", icon: <LuBookPlus /> },
   ];
 
-  //   const teacherNavItems = [
-  //     { name: "Dashboard", path: "/Dashboard", icon: <FaHome /> },
-  //     {
-  //       name: "My Student",
-  //       path: "/Dashboard/myStudents",
-  //       icon: <FaUserGraduate />,
-  //     },
-  //     {
-  //       name: "Assigned Students",
-  //       path: "/Dashboard/AssignedStudents",
-  //       icon: <FaPeopleRoof />,
-  //     },
-  //     { name: "Students Result", path: "/Dashboard/Result", icon: <PiExam /> },
-  //     {
-  //       name: "TeacherProfile",
-  //       path: "/Dashboard/TeacherProfile/MyProfile",
-  //       icon: <FaUser />,
-  //     },
-  //     { name: "Student", path: "/Dashboard/Student", icon: <FaUserGraduate /> },
-  //     {
-  //       name: "Teacher",
-  //       path: "/Dashboard/Teacher",
-  //       icon: <FaChalkboardTeacher />,
-  //     },
-
-  //     { name: "Events", path: "/Dashboard/Events", icon: <FaCalendarAlt /> },
-  //     {
-  //       name: "Notices",
-  //       path: "/Dashboard/Notices",
-  //       icon: <GrAnnounce />,
-  //     },
-  //     { name: "Finance", path: "/Dashboard/Finance", icon: <FaDollarSign /> },
-  //     { name: "Fee", path: "/Dashboard/Fee", icon: <MdFeed /> },
-  //     { name: "Edit", path: "/Dashboard/Edit", icon: <FaPenNib /> },
-  //     {
-  //       name: "Application",
-  //       path: "/Dashboard/Application",
-  //       icon: <MdInbox />,
-  //     },
-  //     {
-  //       name: "Application Management",
-  //       path: "/Dashboard/Application-Management",
-  //       icon: <MdInbox />,
-  //     },
-  //   ];
-
-  //   const studentNavItems = [
-  //     { name: "Results", path: "/Dashboard/Results", icon: <FaPenNib /> },
-  //     {
-  //       name: "Assignments",
-  //       path: "/Dashboard/Assignments",
-  //       icon: <MdOutlineAssignment />,
-  //     },
-  //     {
-  //       name: "ClassSchedule",
-  //       path: "/Dashboard/ClassSchedule",
-  //       icon: <RiCalendarScheduleLine />,
-  //     },
-  //     {
-  //       name: "FeesManagement",
-  //       path: "/Dashboard/FeesManagement",
-  //       icon: <FaMoneyBillTransfer />,
-  //     },
-  //     {
-  //       name: "Attendence",
-  //       path: "/Dashboard/Attendence",
-  //       icon: <MdOutlineCoPresent />,
-  //     },
-  //     {
-  //       name: "StudentsProfile",
-  //       path: `/Dashboard/Student/My-Profile`,
-  //       icon: <FaUser />,
-  //     },
-  //     {
-  //       name: "Application",
-  //       path: "/Dashboard/Application",
-  //       icon: <MdInbox />,
-  //     },
-  //   ];
+  const traineeNavItems = [
+    {
+      name: "Trainee-Profile",
+      path: "Trainee-Profile",
+      icon: <GoPersonFill />,
+    },
+    { name: "Book-Schedule", path: "Book-Schedule", icon: <LuBookPlus /> },
+  ];
 
   const filteredNavItems =
-    role === "Teacher"
-      ? teacherNavItems
-      : role === "Student"
-      ? studentNavItems
-      : navItems;
+    role === "Admin"
+      ? adminNavItems
+      : role === "Trainer"
+      ? trainerNavItems
+      : role === "Trainee"
+      ? traineeNavItems
+      : [];
 
   return (
     <div>
@@ -163,17 +102,17 @@ const Sidebar = () => {
         <div className="items-center justify-between p-4">
           <div onClick={handleClick} className="z-50 bg-black">
             {!nav ? (
-              <FaBars className="w-6 h-6 text-white" />
+              <FaBars className="w-6 h-6 text-white mt-8" />
             ) : (
-              <div className="absolute top-0 w-[272px] h-full bg-black">
+              <div className="absolute top-0 mt-0 w-[272px] h-full bg-black">
                 <div className="flex items-center ">
                   <FaTimes
-                    className="w-6 h-6 mt-3 text-white"
+                    className="w-6 h-6 mt-8 text-white"
                     onClick={handleClick}
                   />
                   <Link
                     to="/"
-                    className="font-orbitron mt-3 ml-5 font-bold text-white"
+                    className="font-orbitron mt-8 ml-5 font-bold text-white"
                   >
                     GYMWEB
                   </Link>
@@ -185,7 +124,7 @@ const Sidebar = () => {
 
         {/* Sidebar Items */}
         <ul
-          className="mt-2"
+          className="mt-8"
           style={{
             overflowY: "auto",
             height: "calc(100vh - 72px)",
@@ -209,7 +148,6 @@ const Sidebar = () => {
         </ul>
       </motion.div>
 
-      {/* Mobile Menu */}
       <motion.ul
         style={{
           overflowY: "auto",
@@ -221,7 +159,7 @@ const Sidebar = () => {
         className={
           !nav
             ? "hidden"
-            : "absolute z-40 top-12 left-1 w-64 h-screen  text-white flex-col flex justify-start bg-black"
+            : "absolute z-40 top-16 left-1 w-64 h-screen text-white flex-col flex justify-start bg-black"
         }
         initial={{ x: "-100%" }}
         animate={{ x: nav ? "0%" : "-100%" }}

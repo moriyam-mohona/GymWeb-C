@@ -2,19 +2,16 @@ import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Heading from "../../../../SubComponents/Heading";
 import Modal from "../../../../SubComponents/Modal";
-import { SubmitBtn } from "../../../../SubComponents/Buttons/Button";
-import { p } from "motion/react-client";
 
 const TrainerRequests = () => {
   const [trainers, setTrainers] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [isAcceptModalOpen, setAcceptModalOpen] = useState(false); // New state for Accept modal
+  const [isAcceptModalOpen, setAcceptModalOpen] = useState(false);
   const [selectedTrainer, setSelectedTrainer] = useState(null);
   const [editForm, setEditForm] = useState({});
   const axiosSecure = useAxiosSecure();
 
-  // Fetch trainers data
   useEffect(() => {
     const fetchTrainers = async () => {
       try {
@@ -233,7 +230,7 @@ const TrainerRequests = () => {
           <div className="flex justify-between items-center w-full font-out">
             <button
               className="text-white border hover:border-none hover:bg-red hover:text-white px-8 py-2 rounded"
-              onClick={() => setAcceptModalOpen(false)} // Close modal
+              onClick={() => setAcceptModalOpen(false)}
             >
               Cancel
             </button>

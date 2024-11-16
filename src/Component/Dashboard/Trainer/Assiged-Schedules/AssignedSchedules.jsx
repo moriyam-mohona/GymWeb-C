@@ -14,9 +14,8 @@ const AssignedSchedule = () => {
   const [selectedSchedule, setSelectedSchedule] = useState(null);
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth(); // Get logged-in user
+  const { user } = useAuth();
 
-  // Fetch all trainers
   useEffect(() => {
     const fetchTrainers = async () => {
       try {
@@ -40,7 +39,7 @@ const AssignedSchedule = () => {
             trainers.find((trainer) => trainer._id === schedule.trainerId)
               ?.Email === user?.email
         );
-        setFilteredSchedules(filtered); // Set filtered schedules
+        setFilteredSchedules(filtered);
       } catch (error) {
         console.error("Error fetching class schedules:", error);
       }
@@ -67,14 +66,12 @@ const AssignedSchedule = () => {
       if (response.status === 200) {
         toast.success("Schedule deleted successfully!");
 
-        // First update the UI (state) to remove the deleted schedule
         setSchedules((prevSchedules) =>
           prevSchedules.filter(
             (schedule) => schedule._id !== selectedSchedule._id
           )
         );
 
-        // After state update is complete, close the modal
         setDeleteModalOpen(false);
       } else {
         toast.error("Failed to delete schedule.");
@@ -86,7 +83,6 @@ const AssignedSchedule = () => {
 
   useEffect(() => {
     if (selectedSchedule && !isDeleteModalOpen) {
-      // After the modal is closed, reset selectedSchedule to null
       setSelectedSchedule(null);
     }
   }, [isDeleteModalOpen, selectedSchedule]);
@@ -124,8 +120,8 @@ const AssignedSchedule = () => {
                 <FaTrash
                   className="text-red hover:text-white cursor-pointer"
                   onClick={() => {
-                    setSelectedSchedule(schedule); // Set the selected schedule
-                    setDeleteModalOpen(true); // Open delete modal
+                    setSelectedSchedule(schedule);
+                    setDeleteModalOpen(true);
                   }}
                 />
               </div>

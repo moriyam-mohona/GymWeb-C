@@ -63,10 +63,15 @@ const BookSchedule = () => {
       return;
     }
 
-    if (selectedSchedule.Bookings.length >= 10) {
+    const bookingsCount = selectedSchedule.Bookings
+      ? selectedSchedule.Bookings.length
+      : 0;
+
+    if (bookingsCount >= 10) {
       toast.error("This class is full. Please select another schedule.");
       return;
     }
+
     try {
       const response = await axiosSecure.patch(
         `/booking-schedule/${selectedSchedule._id}`,
@@ -75,6 +80,18 @@ const BookSchedule = () => {
 
       if (response.data.message === "Booking added successfully.") {
         toast.success("You have successfully booked the class!");
+
+        const updatedSchedules = schedules.map((schedule) => {
+          if (schedule._id === selectedSchedule._id) {
+            return {
+              ...schedule,
+              Bookings: [...schedule.Bookings, trainee._id],
+            };
+          }
+          return schedule;
+        });
+
+        setSchedules(updatedSchedules);
       }
     } catch (error) {
       console.error("Error booking the class:", error);
@@ -117,8 +134,11 @@ const BookSchedule = () => {
                     new Date(`1970-01-01T${schedule.endTime}`)
                   )}
                 </div>
-                {/* Optional: Display remaining spots */}
-                {/* <p>Remaining Spots: {10 - schedule.Bookings.length} / 10</p> */}
+
+                <p>
+                  Remaining Spots:{" "}
+                  {10 - (schedule.Bookings ? schedule.Bookings.length : 0)} / 10
+                </p>
               </div>
             ))}
           </div>

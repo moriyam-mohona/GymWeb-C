@@ -32,7 +32,6 @@ function Navbar() {
     }
   };
 
-  // Close dropdown when clicking outside
   document.addEventListener("click", closeDropdown);
 
   return (
@@ -78,7 +77,7 @@ function Navbar() {
                   </div>
                   <hr className="" />
                   <Link
-                    to="/UserProfile"
+                    to="/"
                     className="flex items-center font-out text-base gap-2 px-4 py-2 text-white hover:bg-orange"
                   >
                     <IoPerson /> Profile

@@ -7,17 +7,17 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const { createUser, updatePro } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [generalError, setGeneralError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -51,21 +51,18 @@ const SignUp = () => {
         Role: "Trainee",
       };
 
-      // Send user data to backend
       const response = await axiosPublic.post("/user", userInfo);
 
       if (response.data && response.data.insertedId) {
         toast.success("User Created Successfully");
         navigate("/");
       } else {
-        // Log if response doesn't have insertedId
         console.error("Error: User creation failed.");
       }
     } catch (error) {
       console.error(error);
 
       if (error.response && error.response.data) {
-        // Handle specific error from the backend if available
         if (error.response.data.message === "User already exists") {
           setGeneralError("User with this email already exists.");
         } else {
@@ -104,8 +101,8 @@ const SignUp = () => {
         </h2>
 
         {/* Sign-Up Form */}
-        <form className="flex flex-col items-center" onSubmit={handleSignup}>
-          {/* Name Field */}
+        <form className="flex flex-col items-center" onSubmit={handleSignUp}>
+          {/* Name  */}
           <div className="mb-4 w-full">
             <label htmlFor="name" className="block text-sm font-medium mb-2">
               Full Name
@@ -120,7 +117,7 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Email Field */}
+          {/* Email  */}
           <div className="mb-4 w-full">
             <label htmlFor="email" className="block text-sm font-medium mb-2">
               Email Address
@@ -140,7 +137,7 @@ const SignUp = () => {
             )}
           </div>
 
-          {/* Password Field */}
+          {/* Password  */}
           <div className="mb-4 w-full relative">
             <label
               htmlFor="password"
@@ -158,7 +155,7 @@ const SignUp = () => {
               className="w-full p-3 rounded-md border focus:outline-none focus:ring-2"
               placeholder="Enter your password"
             />
-            {/* Toggle Password Button */}
+
             <button
               type="button"
               onClick={togglePasswordVisibility}
@@ -173,8 +170,6 @@ const SignUp = () => {
 
           {/* Submit Button */}
           <SubmitBtn text="Sign Up" className="block mt-4" />
-
-          {/* General Error Message */}
           {generalError && (
             <p className="text-red-500 text-center text-sm mt-4">
               {generalError}
@@ -182,7 +177,6 @@ const SignUp = () => {
           )}
         </form>
 
-        {/* Already Registered Link */}
         <div className="mt-6 text-center">
           <p className="text-sm mt-2">
             Already have an account?{" "}

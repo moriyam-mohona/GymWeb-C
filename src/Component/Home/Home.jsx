@@ -2,7 +2,7 @@ import React from "react";
 import Hero from "./Hero/Hero";
 import Navbar from "../Navbar/Navbar";
 import Section2 from "./Section2/Section2";
-import Section3 from "./Section3/section3";
+import Section3 from "./Section3/Section3";
 
 const Home = () => {
   return (

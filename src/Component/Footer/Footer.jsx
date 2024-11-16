@@ -4,7 +4,7 @@ import { IoLogoTiktok } from "react-icons/io5";
 
 function Footer() {
   return (
-    <div className="bg-footer-bg relative text-white px-3 md:px-7 lg:px-10 font-out">
+    <div className="bg-footer-bg relative text-white px-3 md:px-7 lg:px-10 mt-5  lg:mt-24 font-out">
       <div className="relative z-20 pt-16 pb-5">
         <div className="flex flex-col items-center gap-4 text-center">
           <h3 className="font-orbitron text-white font-extrabold text-3xl uppercase">
@@ -28,7 +28,6 @@ function Footer() {
             <IoLogoTiktok className="hover:text-black transition" />
           </div>
 
-          {/* Copyright */}
           <p className="text-sm mt-4">
             &copy; {new Date().getFullYear()} All Rights Reserved
           </p>
