@@ -117,12 +117,6 @@ npm run dev
 ``` 
 ---
 
-## 🛠 Admin Credentials  
-- **Email**: mdemdadullahahammed@gmail.com  
-- **Password**: 12345  
-
----
-
 ## 🌐 Live Hosting Links  
 - **Frontend**: [ https://gym-web-c.vercel.app]( https://gym-web-c.vercel.app)  
 
