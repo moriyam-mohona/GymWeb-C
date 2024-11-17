@@ -1,8 +1,7 @@
-# 🏋️ Gym Class Scheduling and Membership Management System
+# 🏋️ GYMWEB - Gym Class Scheduling and Membership Management System
 
 A comprehensive platform for managing gym operations, class schedules, and memberships.
 
----
 
 ## 📖 Overview
 
@@ -60,19 +59,19 @@ The **Gym Class Scheduling and Membership Management System** simplifies gym man
 - **Class Scheduling**:
   - Create and view schedules.
   - Validates:
-<<<<<<< HEAD
-    - Maximum of 5 schedules per day.
-    - 2-hour duration per class _(Feature under development)_.
-=======
-    - Maximum of 5 schedules per day(Not Complete).
-    - 2-hour duration per class _(Feature under development).
->>>>>>> ad358903f5f2918cf47f907d2160e4304243f701
+    - Maximum of 5 schedules per day _(Feature under development)_.
+    - 2-hour duration per class.
 
 #### 🗓️ Trainer Dashboard
-
 - View assigned schedules, including:
   - Date
   - Time
+  - 
+#### 🗓️ Trainee Dashboard
+
+- View available gym class schedules
+- Book class sessions
+- Update Profile Infos
 
 #### 📱 Mobile Responsiveness
 
@@ -81,95 +80,57 @@ The **Gym Class Scheduling and Membership Management System** simplifies gym man
 ### ⚙️ Backend Features
 
 - **JWT Authentication**: Ensures secure role-based access.
-<<<<<<< HEAD
-- **Validation**: Enforces business rules for scheduling.
-=======
->>>>>>> ad358903f5f2918cf47f907d2160e4304243f701
-
----
 
 ## 🔑 Admin Credentials
 
-<<<<<<< HEAD
-| Email             | Password |
-| ----------------- | -------- |
-| admin@example.com | admin123 |
-
----
-
-## 🚀 Deployment
-
-| Platform     | Link               |
-| ------------ | ------------------ |
-| **Frontend** | [Live Site](#)     |
-| **Backend**  | [API Endpoints](#) |
-=======
 | Email                 | Password           |
 | -----------------     | --------           |
 | admin@example.com     | Admin1             |
 | trainer2024@gmail.com | Trainer2024        |
 | trainee2024@gmail.com | Trainee2024        |
 
->>>>>>> ad358903f5f2918cf47f907d2160e4304243f701
+---
+
+Here's the proper format for your README file with clear and concise instructions:  
 
 ---
 
-## 🛠️ Instructions to Run Locally
+## 🚀 Instructions to Run Locally  
 
-### Step 1: Clone the Repository
+### Step 1: Clone the Repository  
+```bash  
+git clone git clone https://github.com/moriyam-mohona/GymWeb-C.git    
+```  
 
-```bash
-git clone https://github.com/your-repo.git
-cd project-folder
-Step 2: Install Dependencies
-bash
-Copy code
-# For frontend
-cd frontend
-npm install
+### Step 2: Install Dependencies  
+```bash  
+cd GymWeb-C    
+npm install  
+```  
 
-# For backend
-cd backend
-npm install
-Step 3: Setup Environment Variables
-Create .env files in both frontend and backend folders.
-Step 4: Start the Servers
-bash
-Copy code
-# Start Frontend
-npm run dev
+### Step 3: Set Up Environment Variables  
+1. Create a `.env` file in the root directory.  
+2. Add the necessary environment variables such as:  
+   - MongoDB connection string  
+   - JWT secret key  
 
-# Start Backend
-npm start
-Step 5: Access the Application
-Open your browser and navigate to:
-Frontend: http://localhost:5173
-Backend: http://localhost:5000
-🧪 Testing Instructions
-Login as Admin: Use the credentials provided above.
-Add Trainers: Navigate to the Manage Trainers section to add, edit, or delete trainers.
-Schedule Classes: Test the class scheduling feature with limits validation.
-Booking Validation: Attempt exceeding booking limits to ensure proper error handling.
-<<<<<<< HEAD
-📸 Screenshots
-Feature	Screenshot
-Home Page
-Admin Dashboard
-Trainer Dashboard
-(Replace placeholders with actual screenshots.)
+### Step 4: Start the Development Server  
+```bash  
+npm run dev  
+``` 
+---
 
-❗ Important Notes
-Ensure the backend server is running before testing the frontend.
-Include screenshots of all key functionalities in your submission.
-📜 License
-This project is open-source under the MIT License.
+## 🛠 Admin Credentials  
+- **Email**: mdemdadullahahammed@gmail.com  
+- **Password**: 12345  
 
-✉️ Contact
-For any queries, reach out at:
+---
 
-Email: your-email@example.com
-GitHub: Your GitHub Profile
-=======
+## 🌐 Live Hosting Links  
+- **Frontend**: [ https://gym-web-c.vercel.app]( https://gym-web-c.vercel.app)  
 
->>>>>>> ad358903f5f2918cf47f907d2160e4304243f701
-```
+---
+
+### Happy Coding! 💻  
+
+---  
