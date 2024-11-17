@@ -88,10 +88,7 @@ The **Gym Class Scheduling and Membership Management System** simplifies gym man
 | admin@example.com     | Admin1             |
 | trainer2024@gmail.com | Trainer2024        |
 | trainee2024@gmail.com | Trainee2024        |
-
----
-
-Here's the proper format for your README file with clear and concise instructions:  
+ 
 
 ---
 
