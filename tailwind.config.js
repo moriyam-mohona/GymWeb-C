@@ -30,7 +30,7 @@ export default {
     colors: {
       yellow: "#D6FD51",
       orange: "#FF4601",
-      red: "#ed2100",
+      red: "#ff3333",
       green: "#008000",
       blue: "#0A1425",
       white: "#FFFFFF",

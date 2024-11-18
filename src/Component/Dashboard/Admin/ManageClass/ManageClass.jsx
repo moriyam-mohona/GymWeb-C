@@ -17,6 +17,7 @@ const ManageClass = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
+  //Fetch Trainers
   useEffect(() => {
     const fetchTrainers = async () => {
       try {
@@ -29,6 +30,7 @@ const ManageClass = () => {
     fetchTrainers();
   }, []);
 
+  //Fetch Schedules
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
@@ -41,35 +43,21 @@ const ManageClass = () => {
     fetchSchedules();
   }, []);
 
-  const handleAddSchedule = async (newSchedule) => {
-    try {
-      const response = await axiosSecure.post("/schedules", newSchedule);
-      setSchedules([...schedules, response.data]);
-    } catch (error) {
-      console.error("Error adding schedule:", error);
-    }
+  const handleAddSchedule = (newSchedule) => {
+    setSchedules((prev) => [...prev, newSchedule]);
   };
-
   const handleDeleteSchedule = async () => {
-    if (!selectedSchedule) return;
-
     try {
       const response = await axiosSecure.delete(
         `/schedule/${selectedSchedule._id}`
       );
-      if (response.status === 200) {
-        toast.success("Schedule deleted successfully!");
-
-        setSchedules((prevSchedules) =>
-          prevSchedules.filter(
-            (schedule) => schedule._id !== selectedSchedule._id
-          )
-        );
-
-        setDeleteModalOpen(false);
-      } else {
-        toast.error("Failed to delete schedule.");
-      }
+      setSchedules((prevSchedules) =>
+        prevSchedules.filter(
+          (schedule) => schedule._id !== selectedSchedule._id
+        )
+      );
+      setDeleteModalOpen(false);
+      toast.success("Schedule deleted successfully!");
     } catch (error) {
       toast.error("An error occurred while deleting the schedule.");
     }
@@ -101,7 +89,6 @@ const ManageClass = () => {
           onClick={() => setEditModalOpen(true)}
         />
       </div>
-
       {schedules.length === 0 ? (
         <p className="text-red text-lg">
           No available schedules at the moment....
@@ -137,14 +124,13 @@ const ManageClass = () => {
           ))}
         </div>
       )}
-
       <AddSchedule
         isOpen={isEditModalOpen}
         onClose={() => setEditModalOpen(false)}
         trainers={trainers}
         onAddSchedule={handleAddSchedule}
       />
-
+      {/* Delete Modal  */}
       <Modal
         isOpen={isDeleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}

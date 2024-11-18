@@ -8,7 +8,7 @@ const Root = () => {
   const noHeaderFooter =
     location.pathname.includes("Login") || location.pathname.includes("SignUp");
   return (
-    <div>
+    <div className="overflow-x-hidden">
       {/* {noHeaderFooter || <Navbar />} */}
 
       {/* Outlet  */}

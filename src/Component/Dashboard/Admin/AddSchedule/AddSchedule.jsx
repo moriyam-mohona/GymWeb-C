@@ -16,9 +16,8 @@ const AddSchedule = ({ isOpen, onClose, trainers, onAddSchedule }) => {
     let hours = start.getHours();
     let minutes = start.getMinutes();
     const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
+    hours = hours % 12 || 12;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
 
     return `${hours}:${minutes} ${ampm}`;
   };
@@ -50,25 +49,6 @@ const AddSchedule = ({ isOpen, onClose, trainers, onAddSchedule }) => {
       setError("Please fill in all fields.");
       return;
     }
-
-    const existingSchedules = trainers.filter(
-      (schedule) => schedule.date === newSchedule.date
-    );
-    if (existingSchedules.length >= 5) {
-      setError("You cannot add more than 5 schedules per day.");
-      return;
-    }
-
-    const start = new Date(`1970-01-01T${newSchedule.startTime}:00`);
-    const end = new Date(`1970-01-01T${newSchedule.endTime}:00`);
-    const duration = (end - start) / (1000 * 60 * 60);
-    if (duration !== 2) {
-      setError(
-        `Class duration must be exactly 2 hours. Suggested end time is ${suggestedEndTime}`
-      );
-      return;
-    }
-
     try {
       const response = await axiosSecure.post("/schedule", newSchedule);
       if (response.status === 200) {
@@ -76,11 +56,13 @@ const AddSchedule = ({ isOpen, onClose, trainers, onAddSchedule }) => {
         onAddSchedule(newSchedule);
         form.reset();
         onClose();
-      } else {
-        setError(response.data.message || "Failed to add schedule.");
       }
     } catch (error) {
-      setError("An error occurred while adding the schedule.");
+      if (error.response && error.response.status === 400) {
+        setError(error.response.data.message);
+      } else {
+        setError("An error occurred while adding the schedule.");
+      }
     }
   };
 
@@ -90,36 +72,31 @@ const AddSchedule = ({ isOpen, onClose, trainers, onAddSchedule }) => {
       onClose={onClose}
       title="Add New Class Schedule"
       content={
-        <>
-          <form onSubmit={handleAddSchedule} className="flex flex-col gap-4">
-            <select name="trainerName" className="input input-bordered">
-              <option value="">Select Trainer</option>
-              {trainers
-                .filter((trainer) => trainer.Role === "Trainer")
-                .map((trainer) => (
-                  <option key={trainer._id} value={trainer._id}>
-                    {trainer.Name}
-                  </option>
-                ))}
-            </select>
-            <input type="date" name="date" className="input input-bordered" />
-            <input
-              type="time"
-              name="startTime"
-              className="input input-bordered"
-              onChange={handleStartTimeChange}
-            />
-            <input
-              type="time"
-              name="endTime"
-              className="input input-bordered"
-            />
-            {suggestedEndTime && (
-              <p className="text-red">Suggested end time: {suggestedEndTime}</p>
-            )}
-            <SubmitBtn text="Add Schedule" />
-          </form>
-        </>
+        <form onSubmit={handleAddSchedule} className="flex flex-col gap-4">
+          <select name="trainerName" className="input input-bordered">
+            <option value="">Select Trainer</option>
+            {trainers
+              .filter((trainer) => trainer.Role === "Trainer")
+              .map((trainer) => (
+                <option key={trainer._id} value={trainer._id}>
+                  {trainer.Name}
+                </option>
+              ))}
+          </select>
+          <input type="date" name="date" className="input input-bordered" />
+          <input
+            type="time"
+            name="startTime"
+            className="input input-bordered"
+            onChange={handleStartTimeChange}
+          />
+          <input type="time" name="endTime" className="input input-bordered" />
+          {suggestedEndTime && (
+            <p className="text-red">Suggested end time: {suggestedEndTime}</p>
+          )}
+          {error && <p className="text-red">{error}</p>}
+          <SubmitBtn text="Add Schedule" />
+        </form>
       }
     />
   );

@@ -77,7 +77,6 @@ const ManageTrainers = () => {
       const response = await axiosSecure.delete(
         `/users/${selectedTrainer._id}`
       );
-      console.log(response.data.message);
       setTrainers((prev) =>
         prev.filter((trainer) => trainer._id !== selectedTrainer._id)
       );
